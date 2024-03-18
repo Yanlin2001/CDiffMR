@@ -47,9 +47,9 @@ class GaussianDiffusion(nn.Module):
 
 
     # --------------------------------
-    # Degradation
+    # Degradation - 退化
     # --------------------------------
-    # return mask generation function
+    # return mask generation function - 返回掩模生成函数
     def get_mask_func(self, ksu_mask_type, af, cf):
         if ksu_mask_type == 'cartesian_regular':
             return subsample.EquispacedMaskFractionFunc(center_fractions=[cf], accelerations=[af])
@@ -69,7 +69,7 @@ class GaussianDiffusion(nn.Module):
         else:
             raise NotImplementedError
 
-    # return the undersampling mask at specific timestep
+    # return the undersampling mask at specific timestep - 返回特定时间步的下采样掩模
     def get_ksu_mask(self, ksu_mask_type, af, cf, pe, fe, seed=0):
 
         mask_func = self.get_mask_func(ksu_mask_type, af, cf)
@@ -93,7 +93,7 @@ class GaussianDiffusion(nn.Module):
 
         return mask
 
-    # return undersampling masks at different timesteps
+    # return undersampling masks at different timesteps - 返回不同时间步的下采样掩模
     def get_ksu_masks(self):
         masks = []
 
@@ -155,7 +155,7 @@ class GaussianDiffusion(nn.Module):
 
 
     # --------------------------------
-    # Sampling
+    # Sampling - 采样
     # --------------------------------
     @torch.no_grad()
     def sample(self, x_start, x_obs=None, mask=None, batch_size=1, t=None,):
@@ -346,13 +346,13 @@ class GaussianDiffusion(nn.Module):
 
 
     # --------------------------------
-    # degradation for training
+    # degradation for training - 训练时的退化
     # --------------------------------
     def q_sample(self, x_start, t):
 
         device = x_start.device
 
-        choose_ksu_mask = [self.ksu_masks[step] for step in t]
+        choose_ksu_mask = [self.ksu_masks[step] for step in t] # 选择时间步对应的掩模
         # list (C, H, W) --> (B, C, H, W)
         choose_ksu_mask = torch.stack(choose_ksu_mask).to(device)
 
@@ -364,7 +364,7 @@ class GaussianDiffusion(nn.Module):
 
 
     # --------------------------------
-    # degradation result for all steps
+    # degradation result for all steps - 所有时间步的退化结果
     # --------------------------------
     @torch.no_grad()
     def q_sample_with_mask(self, x_start, t):
@@ -400,7 +400,7 @@ class GaussianDiffusion(nn.Module):
 
 
     # --------------------------------
-    # Training forward
+    # Training forward - 训练前向
     # --------------------------------
     def forward(self, x_start, x_obs=None, mask=None):
         b, c, h, w = x_start.shape
@@ -431,7 +431,7 @@ class GaussianDiffusion(nn.Module):
         return x_ksu, x_recon
 
     # ----------------------------------------
-    # condition
+    # condition - 条件
     # ----------------------------------------
     # concatenate before denoise fn
     def condition_add(self, x, x_obs):

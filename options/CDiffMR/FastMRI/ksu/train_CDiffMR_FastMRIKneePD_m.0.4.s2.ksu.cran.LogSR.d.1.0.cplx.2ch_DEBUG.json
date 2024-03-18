@@ -1,19 +1,19 @@
 {
-  "task": "CDiffMR_FastMRIKneePD_m.0.4.s2.ksu.cran.LogSR.d.1.0.cplx.2ch_DEBUG"    // task name
-  , "model": "cdiffmr_m.0.4.ksu"    // find keywords in ./models/select_model.py
-  , "mask": "fMRI_Ran_AF4_CF0.08_PE320"   // find keywords in ./models/select_mask.py
+  "task": "CDiffMR_FastMRIKneePD_m.0.4.s2.ksu.cran.LogSR.d.1.0.cplx.2ch_DEBUG"
+  , "model": "cdiffmr_m.0.4.ksu" 
+  , "mask": "fMRI_Ran_AF4_CF0.08_PE320" 
   , "gpu_ids": [0, 1]
-  , "dist": false   // distributed computing
-  , "n_channels": 1    // 1 for grayscale, 3 for color
-  , "use_pretrain_weight": null // "enc" or 'all" or "no"
+  , "dist": false 
+  , "n_channels": 1 
+  , "use_pretrain_weight": "no"
   , "manual_seed": 42
   , "path": {
     "root": "mri_recon_dm"
-    , "pretrained_net_model_DM": null      // path of pretrained model
-    , "pretrained_net_model_EMA": null      // path of pretrained model
+    , "pretrained_net_model_DM": null 
+    , "pretrained_net_model_EMA": null  
   }
   , "wandb": {
-    "mode": "disabled"  // "offline", "online", "disabled"
+    "mode": "disabled" 
     , "project_name": "MRI_Recon-CDiffMR"
     , "is_sweep": false
     , "sweep_num_agent": null
@@ -23,16 +23,16 @@
     "train": {
       "name": "train_dataset"
       , "dataset_type": "fastmri.d.1.0.complex"
-      , "dataroot_H": "[PATH TO TRAIN DATASET]"    // path of H training dataset
-      , "mask": "fMRI_Ran_AF4_CF0.08_PE320"   // find keywords in ./models/select_mask.py
-      , "H_size": 320    // patch number for traning stage (randomly crop), set 256 to cancel randomly crop
+      , "dataroot_H": "/kaggle/input/fastmri-knee-val" 
+      , "mask": "fMRI_Ran_AF4_CF0.08_PE320"
+      , "H_size": 320 
       , "sigma": 15
       , "sigma_test": 15
-      , "is_noise": false    // add noise in k-space
-      , "noise_level": 0.0    // NL = S/(S+N)
+      , "is_noise": false  
+      , "noise_level": 0.0 
       , "noise_var": 0.1
-      , "is_mini_dataset": false   // for debug
-      , "mini_dataset_prec": 1    // CC 4700 total
+      , "is_mini_dataset": false 
+      , "mini_dataset_prec": 1 
       , "dataloader_shuffle": true
       , "dataloader_num_workers": 2
       , "dataloader_batch_size": 2
@@ -43,12 +43,12 @@
     , "test": {
       "name": "test_dataset"
       , "dataset_type": "fastmri.d.1.0.complex"
-      , "dataroot_H": "/kaggle/input/fastmri-knee-val"    // path of H testing dataset
-      , "mask": "fMRI_Ran_AF4_CF0.08_PE320"   // find keywords in ./models/select_mask.py
+      , "dataroot_H": "/kaggle/input/fastmri-knee-val" 
+      , "mask": "fMRI_Ran_AF4_CF0.08_PE320"
       , "sigma": 15
       , "sigma_test": 15
-      , "is_noise": false    // add noise in k-space
-      , "noise_level": 0.0    // NL = S/(S+N)
+      , "is_noise": false  
+      , "noise_level": 0.0 
       , "noise_var": 0.1
       , "pixel_range": "complex"
       , "complex_type": "2ch"
@@ -82,26 +82,26 @@
   , "diffusion": {
     "diffusion_type": "cold_diffusion_ksu"
     , "time_step": 100
-    , "sampling_routine": "x0_step_down"  // "x0_step_down" or "ddim"
+    , "sampling_routine": "x0_step_down"
     , "degradation": {
       "ksu_routine": "LogSamplingRate"
-      , "ksu_mask_type": "cartesian_random" // "cartesian_regular", "cartesian_random"
+      , "ksu_mask_type": "cartesian_random" 
       , "pe": 320
       , "fe": 320
     }
 
 }
   , "train": {
-    "lossfn_type": "l1"    // "l1" | "l2sum" | "l2" | "ssim" | "charbonnier" preferred
-    , "lossfn_weight": 1.0    // default 1.0
-    , "charbonnier_eps": null    // default 1e-9
-    , "alpha": 1    // default 15
-    , "beta": null    // default 0.1
-    , "gamma": null    // default 0.0025
-    , "E_decay": 0.995    // Exponential Moving Average for netG: set 0 to disable; default setting 0.999
-    , "model_DM_optimizer_type": "adam"    // fixed, adam is enough
-    , "model_DM_optimizer_lr": 2e-5    // learning rate default 2e-4
-    , "model_DM_optimizer_wd": 0    // weight decay, default 0
+    "lossfn_type": "l1" 
+    , "lossfn_weight": 1.0   
+    , "charbonnier_eps": 1e-9
+    , "alpha": 15
+    , "beta": 0.1
+    , "gamma": 0.0025
+    , "E_decay": 0.999
+    , "model_DM_optimizer_type": "adam" 
+    , "model_DM_optimizer_lr": 2e-5 
+    , "model_DM_optimizer_wd": 0 
     , "model_DM_optimizer_clipgrad": null
     , "model_DM_optimizer_reuse": true
 
@@ -117,9 +117,9 @@
 
     , "model_DM_gradient_accumulation_every": 4
 
-    , "checkpoint_test": 10    // for testing 10000
-    , "checkpoint_save": 10    // for saving model 10000
-    , "checkpoint_print": 10   // for print 200
+    , "checkpoint_test": 10 
+    , "checkpoint_save": 10 
+    , "checkpoint_print": 10 
     , "is_early_stopping": false
   }
 }
