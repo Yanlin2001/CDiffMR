@@ -78,11 +78,11 @@ class CDiffMR(ModelBase):
         if self.opt_train['E_decay'] > 0:
             if load_path_model_EMA is not None:
                 print('Loading model for E [{:s}] ...'.format(load_path_model_EMA))
-                self.update_ema(self.opt_train['E_decay'])
+                #self.update_ema(self.opt_train['E_decay'])
                 self.load_network(load_path_model_EMA, self.model_EMA, strict=self.opt_train['model_EMA_param_strict'], param_key='params_ema')
             else:
                 print('Copying model for E ...')
-                self.update_ema(self.opt_train['E_decay'])
+                #self.update_ema(self.opt_train['E_decay'])
             self.model_EMA.eval()
 
     # ----------------------------------------
