@@ -43,7 +43,7 @@
     , "test": {
       "name": "test_dataset"
       , "dataset_type": "fastmri.d.1.0.complex"
-      , "dataroot_H": "/kaggle/input/fastmri-knee-val"    // path of H testing dataset
+      , "dataroot_H": "[PATH TO TEST DATASET]"    // path of H testing dataset
       , "mask": "fMRI_Ran_AF4_CF0.08_PE320"   // find keywords in ./models/select_mask.py
       , "sigma": 15
       , "sigma_test": 15
