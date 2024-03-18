@@ -211,7 +211,7 @@ def main(json_path=''):
     '''
 
     # if it is not set, keep running
-    max_iter_epoch = opt['train']['max_iter_epoch'] if opt['train']['max_iter_epoch'] else 100000000000
+    max_iter_epoch = opt['train']['max_iter_epoch'] if opt['train']['max_iter_epoch'] else 100000
     print(f"max iterative step: {max_iter_epoch}")
 
     for epoch in range(max_iter_epoch):
@@ -224,22 +224,22 @@ def main(json_path=''):
             current_step += 1
 
             # -------------------------------
-            # 1) update learning rate
+            # 1) update learning rate - 更新学习率
             # -------------------------------
             model.update_learning_rate(current_step)
 
             # -------------------------------
-            # 2) feed patch pairs
+            # 2) feed patch pairs - 输入图像
             # -------------------------------
             model.feed_data(train_data)
 
             # -------------------------------
-            # 3) optimize parameters
+            # 3) optimize parameters - 优化参数
             # -------------------------------
             model.optimize_parameters(current_step)
 
             # -------------------------------
-            # 4) training information
+            # 4) training information - 训练信息
             # -------------------------------
             if current_step % opt['train']['checkpoint_print'] == 0 and opt['rank'] == 0:
                 logs = model.current_log()

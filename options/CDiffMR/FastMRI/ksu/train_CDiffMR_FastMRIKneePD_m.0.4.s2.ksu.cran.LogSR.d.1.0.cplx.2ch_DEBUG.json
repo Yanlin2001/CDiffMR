@@ -106,7 +106,7 @@
     , "model_DM_optimizer_reuse": true
 
     , "model_DM_scheduler_type": "MultiStepLR"
-    , "model_DM_scheduler_milestones": [10000000, 20000000]
+    , "model_DM_scheduler_milestones": [10000, 20000]
     , "model_DM_scheduler_gamma": 0.1
 
     , "model_DM_regularizer_orthstep": null
@@ -120,6 +120,6 @@
     , "checkpoint_test": 10 
     , "checkpoint_save": 10 
     , "checkpoint_print": 10 
-    , "is_early_stopping": false
+    , "is_early_stopping": true
   }
 }
