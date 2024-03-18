@@ -22,9 +22,10 @@ def mkdir(path):
 def read_h5(data_path):
     dict = {}
     with h5py.File(data_path, 'r') as file:
-        dict['image_complex'] = file['image_complex'][()]
-        dict['data_name'] = file['image_complex'].attrs['data_name']
-        dict['slice_idx'] = file['image_complex'].attrs['slice_idx']
+        #dict['image_complex'] = file['image_complex'][()]
+        #dict['data_name'] = file['image_complex'].attrs['data_name']
+        #dict['slice_idx'] = file['image_complex'].attrs['slice_idx']
+        
     return dict
 
 
@@ -153,9 +154,9 @@ class DatasetFastMRI(data.Dataset):
             raise ValueError(f'Known complex_type {self.complex_type}')
 
         # get image information
-        data_name =img_dict['data_name']
-        slice_idx = img_dict['slice_idx']
-        img_info = '{}_{:03d}'.format(data_name, slice_idx)
+        #data_name =img_dict['data_name']
+        #slice_idx = img_dict['slice_idx']
+        #img_info = '{}_{:03d}'.format(data_name, slice_idx)
 
         # ------------------------------------
         # if train, get L/H patch pair
