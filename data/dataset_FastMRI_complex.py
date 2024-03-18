@@ -194,7 +194,7 @@ class DatasetFastMRI(data.Dataset):
             # --------------------------------
             img_L, img_H = util.float2tensor3(img_L), util.float2tensor3(img_H)
 
-        return {'L': img_L, 'H': img_H, 'H_path': H_path, 'mask': mask, 'img_info': img_info}
+        return {'L': img_L, 'H': img_H, 'H_path': H_path, 'mask': mask}
 
     def __len__(self):
         return len(self.paths_H)
