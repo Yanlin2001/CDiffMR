@@ -22,7 +22,8 @@ def mkdir(path):
 def read_h5(data_path):
     dict = {}
     with h5py.File(data_path, 'r') as file:
-        dict['image_complex'] = file['kspace'][()]
+        # 取中间320*320的部分
+        dict['image_complex'] = file['kspace'][0, 0:320, 0:320]
         print('image_complex.shape:', dict['image_complex'].shape)
         #dict['data_name'] = file['image_complex'].attrs['data_name']
         #dict['slice_idx'] = file['image_complex'].attrs['slice_idx']
