@@ -22,7 +22,7 @@
   , "datasets": {
     "train": {
       "name": "train_dataset"
-      , "dataset_type": "fastmri.d.1.0.complex"
+      , "dataset_type": "fastmri.d.1.1.complex"
       , "dataroot_H": "/kaggle/input/fastmri-knee-val" 
       , "mask": "fMRI_Ran_AF4_CF0.08_PE320"
       , "H_size": 320 
@@ -42,7 +42,7 @@
     }
     , "test": {
       "name": "test_dataset"
-      , "dataset_type": "fastmri.d.1.0.complex"
+      , "dataset_type": "fastmri.d.1.1.complex"
       , "dataroot_H": "/kaggle/input/fastmri-knee-val" 
       , "mask": "fMRI_Ran_AF4_CF0.08_PE320"
       , "sigma": 15
