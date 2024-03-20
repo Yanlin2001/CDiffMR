@@ -140,12 +140,13 @@ class DatasetFastMRI(data.Dataset):
             img_dict = read_h5(H_path)
 
         img_H = img_dict['image_complex']  # (H, W) complex
+        print('img_H.shape:', img_H.shape)
 
         img_H = preprocess_normalisation(img_H)
-
+        print('nol_img_H.shape:', img_H.shape)
         # get zf image
         img_L = undersample_kspace(img_H, mask, is_noise, noise_level, noise_var)
-
+        print('img_L.shape:', img_L.shape)
         # expand dim
         img_H = img_H[:, :, np.newaxis]
         img_L = img_L[:, :, np.newaxis]
