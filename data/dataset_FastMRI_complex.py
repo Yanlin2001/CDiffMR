@@ -1,4 +1,6 @@
-
+# -------------------------
+# 类似realesrnet_model.py
+# -------------------------
 import random
 import h5py
 import numpy as np
@@ -9,7 +11,7 @@ from models.select_mask import define_Mask
 from math import floor
 from skimage.transform import resize
 
-
+''' mkdir ：创建文件夹 '''
 def mkdir(path):
     if not os.path.exists(path):
         os.makedirs(path)
@@ -18,7 +20,7 @@ def mkdir(path):
         pass
         # print(f'{path} already exists.')
 
-
+''' read_h5 ：读取h5文件 '''
 def read_h5(data_path):
     dict = {}
     with h5py.File(data_path, 'r') as file:
@@ -30,14 +32,14 @@ def read_h5(data_path):
         
     return dict
 
-
+''' preprocess_normalisation ：预处理归一化 '''
 def preprocess_normalisation(img):
 
     img = img / abs(img).max()
 
     return img
 
-
+''' undersample_kspace ：下采样k空间 '''
 def undersample_kspace(x, mask, is_noise, noise_level, noise_var):
 
     # d.1.0.complex --> d.1.1.complex
@@ -60,15 +62,16 @@ def undersample_kspace(x, mask, is_noise, noise_level, noise_var):
 
     return x
 
-
+''' generate_gaussian_noise ：生成高斯噪声 '''
 def generate_gaussian_noise(x, noise_level, noise_var):
     spower = np.sum(x ** 2) / x.size
     npower = noise_level / (1 - noise_level) * spower
     noise = np.random.normal(0, noise_var ** 0.5, x.shape) * np.sqrt(npower)
     return noise
 
+''' DatasetFastMRI ：FastMRI数据集 '''
 class DatasetFastMRI(data.Dataset):
-
+    
     def __init__(self, opt):
         super(DatasetFastMRI, self).__init__()
         print('Get L/H for image-to-image mapping. Both "paths_L" and "paths_H" are needed.')
@@ -118,6 +121,8 @@ class DatasetFastMRI(data.Dataset):
         # cv2.imwrite(mask_save_path, self.mask * 255)
         # print('mask saved in {}'.format(mask_save_path))
 
+    ''' __getitem__ ：获取数据 '''
+    # 数据处理 feed data
     def __getitem__(self, index):
 
         mask = self.mask  # H, W, 1
@@ -194,6 +199,10 @@ class DatasetFastMRI(data.Dataset):
             # --------------------------------
             img_L, img_H = util.float2tensor3(img_L), util.float2tensor3(img_H)
 
+        print('img_L.shape:', img_L.shape)
+        print('img_H.shape:', img_H.shape)
+        print('H_path:', H_path)
+        print('mask.shape:', mask.shape)
         return {'L': img_L, 'H': img_H, 'H_path': H_path, 'mask': mask}
 
     def __len__(self):
